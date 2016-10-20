@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  hodac-nginx:
+    build: .
+    #logging:
+    #  driver: gelf
+    environment:
+      - SERVER_NAME=testserver
+    volumes:
+      - ./test/conf:/etc/nginx/sites
+      - ./test/includes:/etc/nginx/includes
+      - ./test/html:/usr/share/nginx/html
+    ports:
+      - "8800:80"
+  hodac-debian-test:
+    build: ./test/debian
+    links:
+      - hodac-nginx
+    volumes:
+      - ./test/spec:/test
+    command: bash /test/test.sh
