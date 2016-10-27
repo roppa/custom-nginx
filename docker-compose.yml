@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-  hodac-nginx:
+  bespoke-nginx:
     build: .
     #logging:
     #  driver: gelf
@@ -13,10 +13,10 @@ services:
       - ./test/html:/usr/share/nginx/html
     ports:
       - "8800:80"
-  hodac-debian-test:
+  bespoke-debian-test:
     build: ./test/debian
     links:
-      - hodac-nginx
+      - bespoke-nginx
     volumes:
       - ./test/spec:/test
     command: bash /test/test.sh
